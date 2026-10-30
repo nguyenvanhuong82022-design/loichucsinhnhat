@@ -1,0 +1,430 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>✨ Vũ trụ lời chúc ✨</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 50%, #40106d 0%, #160426 48%, #03020d 100%);
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Ánh sáng nền */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    #7e22ce22,
+    #ff42b822,
+    transparent,
+    #38bdf822,
+    transparent
+  );
+  animation: universe 18s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes universe {
+  to { transform: rotate(360deg); }
+}
+
+/* Vùng chứa hiệu ứng */
+#universe {
+  position: fixed;
+  inset: 0;
+  perspective: 800px;
+  overflow: hidden;
+}
+
+/* Tiêu đề */
+.title {
+  position: absolute;
+  top: 7%;
+  left: 0;
+  width: 100%;
+  padding: 0 12px;
+  text-align: center;
+  z-index: 3;
+  font-size: clamp(25px, 5vw, 48px);
+  color: #fff;
+  text-shadow:
+    0 0 8px #fff,
+    0 0 20px #ff65db,
+    0 0 45px #a855f7;
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+  position: absolute;
+  top: 17%;
+  width: 100%;
+  text-align: center;
+  color: #f4d9ff;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px #d946ef;
+  z-index: 3;
+}
+
+@keyframes titleGlow {
+  from { filter: brightness(.8); transform: scale(.98); }
+  to { filter: brightness(1.4); transform: scale(1.02); }
+}
+
+/* Chữ bay */
+.flying-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  max-width: 90vw;
+  white-space: nowrap;
+  font-size: clamp(15px, 2.5vw, 25px);
+  font-weight: bold;
+  color: white;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation:
+    fly var(--duration) linear forwards,
+    rainbow 3s linear infinite;
+  text-shadow:
+    0 0 5px white,
+    0 0 12px #ff4dca,
+    0 0 25px #a855f7,
+    0 0 45px #7c3aed;
+}
+
+@keyframes fly {
+  0% {
+    transform:
+      translate3d(var(--x1), var(--y1), 0)
+      rotate(-12deg) scale(.4);
+    opacity: 0;
+  }
+  12% { opacity: 1; }
+  30% {
+    transform:
+      translate3d(var(--x2), var(--y2), 100px)
+      rotate(10deg) scale(1.2);
+    opacity: 1;
+  }
+  65% {
+    transform:
+      translate3d(var(--x3), var(--y3), -80px)
+      rotate(-8deg) scale(.9);
+    opacity: 1;
+  }
+  100% {
+    transform:
+      translate3d(var(--x4), var(--y4), 0)
+      rotate(18deg) scale(.6);
+    opacity: 0;
+  }
+}
+
+@keyframes rainbow {
+  0%   { color: #ff8bd8; }
+  20%  { color: #ffe8a3; }
+  40%  { color: #9ffcff; }
+  60%  { color: #d8a5ff; }
+  80%  { color: #aaffc7; }
+  100% { color: #ff8bd8; }
+}
+
+/* Sao phát sáng */
+.star {
+  position: absolute;
+  color: white;
+  pointer-events: none;
+  animation: twinkle var(--twinkle) ease-in-out infinite alternate;
+  text-shadow: 0 0 8px white, 0 0 18px #c084fc, 0 0 30px #f0abfc;
+}
+
+@keyframes twinkle {
+  from { opacity: .15; transform: scale(.5) rotate(0deg); }
+  to { opacity: 1; transform: scale(1.5) rotate(100deg); }
+}
+
+/* Trái tim bay */
+.heart {
+  position: absolute;
+  bottom: -50px;
+  pointer-events: none;
+  animation: heartUp var(--duration) linear forwards;
+  filter: drop-shadow(0 0 12px #ff50c8);
+}
+
+@keyframes heartUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(.5);
+    opacity: 0;
+  }
+  15% { opacity: .9; }
+  100% {
+    transform: translateY(-115vh) rotate(360deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Nút điều khiển */
+.controls {
+  position: absolute;
+  bottom: 6%;
+  left: 0;
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 10;
+}
+
+button {
+  border: 1px solid #ffffff99;
+  border-radius: 30px;
+  padding: 12px 20px;
+  color: white;
+  background: #c026d344;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 18px #d946ef55;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+button:hover {
+  background: #db2777aa;
+  box-shadow: 0 0 25px #f0abfc;
+}
+
+#editor {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90%, 420px);
+  padding: 22px;
+  background: #1b0b2aee;
+  border: 1px solid #e879f9;
+  border-radius: 20px;
+  box-shadow: 0 0 40px #c026d3;
+}
+
+#editor h2 { margin-top: 0; }
+
+#editor textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #c084fc;
+  background: #10051d;
+  color: white;
+  font: inherit;
+  resize: vertical;
+}
+
+#editor label {
+  display: block;
+  margin: 12px 0 6px;
+}
+
+#editor input[type="range"] { width: 100%; }
+
+.hidden { display: none; }
+</style>
+</head>
+
+<body>
+<div id="universe">
+
+  <h1 class="title">✨CHUC MUNG SINH NHAT HAIMY 😘❤️ ✨</h1>
+  <div class="subtitle">A LITTLE MAGIC JUST FOR YOU</div>
+
+  <div class="controls">
+    <button id="more">✨ Thêm ánh sáng</button>
+    <button id="edit">💌 Sửa lời chúc</button>
+    <button id="pause">⏸ Tạm dừng</button>
+  </div>
+
+  <div id="editor" class="hidden">
+    <h2>💌 Lời chúc của bạn</h2>
+    <label for="wishesInput">Mỗi dòng là một lời chúc:</label>
+    <textarea id="wishesInput"></textarea>
+
+    <label for="speed">Tốc độ chữ bay: <span id="speedLabel">7</span> giây</label>
+    <input id="speed" type="range" min="3" max="14" value="7">
+
+    <label for="density">Mật độ chữ: <span id="densityLabel">700</span> ms</label>
+    <input id="density" type="range" min="250" max="1600" step="50" value="700">
+
+    <div class="controls" style="position:static; padding:15px 0 0">
+      <button id="apply">Lưu thay đổi</button>
+      <button id="close">Đóng</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ==================================
+   BẠN CÓ THỂ TỰ CHỈNH PHẦN NÀY
+================================== */
+
+let wishes = [
+  "Chúc mừng sinh nhật tuổi 19 thật rực rỡ nhé! 💖",
+  "Luôn hạnh phúc rạng ngời,luôn mạnh mẽ vui cuời ✨",
+  "Tuôi mới nhiêu thannh công nhiêu may mắn trong cuộc sống  ⭐",
+  "Chúc My luôn vui vẻ 🌸",
+  "Trên con đường phía trước luôn thành công rực rỡ 💜",
+  "Luôn tỏa sáng theo cách riêng 🌈",
+  "luôn là chính mình luôn cười tươi đừng khóc nữa nhé  💕",
+  "Ngày càng xinh đẹp luôn mỉm cười đừng suy nghĩ quá nhé! 🌙"
+];
+
+let flyDuration = 7; // Số giây chữ bay
+let spawnDelay = 700; // Mili giây giữa các lần tạo chữ
+
+/* ================================== */
+
+const universe = document.getElementById("universe");
+const editor = document.getElementById("editor");
+const speed = document.getElementById("speed");
+const density = document.getElementById("density");
+
+let paused = false;
+let timer = null;
+
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+/* Tạo sao nền */
+for (let i = 0; i < 100; i++) {
+  const star = document.createElement("div");
+  star.className = "star";
+  star.textContent = Math.random() > .5 ? "✦" : "✧";
+  star.style.left = random(0, 100) + "vw";
+  star.style.top = random(0, 100) + "vh";
+  star.style.fontSize = random(8, 23) + "px";
+  star.style.setProperty("--twinkle", random(1, 4) + "s");
+  star.style.animationDelay = random(0, 4) + "s";
+  universe.appendChild(star);
+}
+
+/* Tạo chữ bay nhiều hướng */
+function createFlyingText() {
+  if (paused || wishes.length === 0) return;
+
+  const el = document.createElement("div");
+  el.className = "flying-text";
+  el.textContent = wishes[Math.floor(Math.random() * wishes.length)];
+
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  el.style.setProperty("--duration", flyDuration + "s");
+  el.style.setProperty("--x1", random(-w * .2, w * .8) + "px");
+  el.style.setProperty("--y1", random(h * .2, h * .85) + "px");
+  el.style.setProperty("--x2", random(0, w * .7) + "px");
+  el.style.setProperty("--y2", random(-h * .1, h * .5) + "px");
+  el.style.setProperty("--x3", random(-w * .1, w * .8) + "px");
+  el.style.setProperty("--y3", random(0, h * .7) + "px");
+  el.style.setProperty("--x4", random(-w * .2, w * .9) + "px");
+  el.style.setProperty("--y4", random(-h * .4, h * .4) + "px");
+  el.style.fontSize = random(15, 26) + "px";
+
+  universe.appendChild(el);
+  el.addEventListener("animationend", () => el.remove(), { once: true });
+}
+
+/* Trái tim bay */
+function createHeart() {
+  if (paused) return;
+
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = ["💖", "💜", "💕", "💗", "✨"][Math.floor(Math.random() * 5)];
+  heart.style.left = random(0, 96) + "vw";
+  heart.style.fontSize = random(18, 36) + "px";
+  heart.style.setProperty("--duration", random(5, 10) + "s");
+
+  universe.appendChild(heart);
+  heart.addEventListener("animationend", () => heart.remove(), { once: true });
+}
+
+function startEffects() {
+  clearInterval(timer);
+  timer = setInterval(createFlyingText, spawnDelay);
+}
+
+startEffects();
+setInterval(createHeart, 500);
+
+/* Các nút tương tác */
+document.getElementById("more").addEventListener("click", () => {
+  for (let i = 0; i < 15; i++) {
+    setTimeout(createFlyingText, i * 70);
+  }
+  for (let i = 0; i < 12; i++) {
+    setTimeout(createHeart, i * 90);
+  }
+});
+
+document.getElementById("edit").addEventListener("click", () => {
+  document.getElementById("wishesInput").value = wishes.join("\n");
+  speed.value = flyDuration;
+  density.value = spawnDelay;
+  document.getElementById("speedLabel").textContent = speed.value;
+  document.getElementById("densityLabel").textContent = density.value;
+  editor.classList.remove("hidden");
+});
+
+speed.addEventListener("input", () => {
+  document.getElementById("speedLabel").textContent = speed.value;
+});
+
+density.addEventListener("input", () => {
+  document.getElementById("densityLabel").textContent = density.value;
+});
+
+document.getElementById("apply").addEventListener("click", () => {
+  wishes = document.getElementById("wishesInput").value
+    .split("\n")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  flyDuration = Number(speed.value);
+  spawnDelay = Number(density.value);
+  startEffects();
+  editor.classList.add("hidden");
+});
+
+document.getElementById("close").addEventListener("click", () => {
+  editor.classList.add("hidden");
+});
+
+document.getElementById("pause").addEventListener("click", (event) => {
+  paused = !paused;
+  document.getAnimations().forEach(animation => {
+    animation.playState = paused ? "paused" : "running";
+  });
+  event.currentTarget.textContent = paused ? "▶ Tiếp tục" : "⏸ Tạm dừng";
+});
+</script>
+</body>
+</html>
